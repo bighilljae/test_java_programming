@@ -8,6 +8,11 @@ public class BowlingGame {
 	}
 
 	public Integer roll(Integer i) {
+		return i;
+	}
+
+	public BowlingFrame getNowFrame() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
