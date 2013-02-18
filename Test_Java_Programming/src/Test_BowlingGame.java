@@ -63,6 +63,7 @@ public class Test_BowlingGame {
 		testGame.roll(2);
 		
 		assertEquals(ScoreFrame.getInstanceof(1,"81",9), testGame.requireFrame(1));
+		assertEquals(ScoreFrame.getInstanceof(2,"72",9), testGame.requireFrame(2));
 	}
 	
 	
