@@ -3,13 +3,24 @@ public class BowlingFrame {
 
 	Integer Frame = 1, Tried= 1;
 	
-	public static BowlingFrame getInstanceof(Integer i, Integer j) {
+	/**
+	 * 
+	 * @param frame frame 넘버
+	 * @param tried 시행횟수
+	 * @return BowlingFrame에 frame 에 시행횟수 적용된 인스턴스
+	 */
+	public static BowlingFrame getInstanceof(Integer frame, Integer tried) {
 		// TODO Auto-generated method stub
 		BowlingFrame tempInstance = new BowlingFrame();
-		tempInstance.Frame = i; tempInstance.Tried = j;
+		tempInstance.Frame = frame; tempInstance.Tried = tried;
 		return tempInstance;
 	}
 	
+	/**
+	 * 
+	 * @param obj 비교하고자 하는 오브젝트
+	 * @return 같은지 여부.
+	 */
 	public boolean equals(BowlingFrame obj) {
 		// TODO Auto-generated method stub
 		if( obj.Frame.equals(this.Frame) && obj.Tried.equals(this.Tried) ){ 
@@ -18,6 +29,10 @@ public class BowlingFrame {
 		return false;		// 빠른 return 문으로 else문 작성 회피 성공.
 	}
 	
+	/**
+	 * 
+	 * @param pins 핀 하나가 추가 되어서 상태 변화.
+	 */
 	public void FrameAddTry(Integer pins){
 		if( Frame == 10 && pins.equals(10) ){
 			Tried++;
