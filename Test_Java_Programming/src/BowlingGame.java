@@ -27,5 +27,10 @@ public class BowlingGame {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public ScoreFrame requireFrame(Integer Framenum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

@@ -11,10 +11,11 @@ import org.junit.Test;
 
 public class Test_BowlingGame {
 	BowlingGame testGame;
-
+	HashMap<BowlingFrame, Integer> gameFrame;
 	@Before
 	public void init() {
 		testGame = new BowlingGame(); // BowlingGame 인스턴스 생성
+		gameFrame = new HashMap<>();
 	}
 
 	@Test
@@ -41,7 +42,7 @@ public class Test_BowlingGame {
 		testGame.roll(2);
 		testGame.roll(6);
 		// 1Frame : 8-1 2Frame : 7-2 3Frame : 6-
-		HashMap<BowlingFrame, Integer> gameFrame = new HashMap<>();
+		
 		gameFrame.put(BowlingFrame.getInstanceof(1, 1), 8);
 		gameFrame.put(BowlingFrame.getInstanceof(1, 2), 1);
 		gameFrame.put(BowlingFrame.getInstanceof(2, 1), 7);
@@ -61,8 +62,7 @@ public class Test_BowlingGame {
 		testGame.roll(5);
 		testGame.roll(2);
 		
-		LinkedList<ScoreFrame> list = testGame.getScoreBoard();
-		Iterator<ScoreFrame> iterator = list.descendingIterator();
+		assertEquals(ScoreFrame.getInstanceof(1,"81",9), testGame.requireFrame(1));
 	}
 	
 	
