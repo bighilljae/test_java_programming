@@ -38,5 +38,8 @@ public class Test_BowlingGame {
 		gameFrame.put(BowlingFrame.getInstanceof(2, 2), 2);
 		gameFrame.put(BowlingFrame.getInstanceof(3, 1), 6);
 		assertEquals(Boolean.TRUE, BowlingFrame.getInstanceof(3, 2).equals(testGame.getNowFrame()));
+		gameFrame.put(BowlingFrame.getInstanceof(3, 2), 4);
+		gameFrame.put(BowlingFrame.getInstanceof(4, 1), 10);
+		assertEquals("Strike Frame check", Boolean.TRUE, BowlingFrame.getInstanceof(5, 1).equals(testGame.getNowFrame()));
 	}
 }
