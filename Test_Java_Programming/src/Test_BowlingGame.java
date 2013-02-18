@@ -16,4 +16,9 @@ public class Test_BowlingGame {
 	public void test_GameStarted(){
 		assertEquals(Boolean.TRUE, testGame.gameStatus);
 	}
+	
+	@Test
+	public void test_roll(){
+		assertEquals(Integer.valueOf(8), testGame.roll(8));
+	}
 }
