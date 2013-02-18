@@ -16,6 +16,14 @@ public class ScoreFrame {
 		return new ScoreFrame(Framenum, Result, Score);
 		// 이렇게 하면 메모리 잡아 먹는 양이 늘지 않는가?
 		// Effective Java 에서 언급했던 내용중에 하나였던것 같은데, 시험이 끝나더라도 다시 한번 찾아볼것!
+		// instance 관리 필요.
 	}
 	 
+	public boolean equals(ScoreFrame obj) {
+		// TODO Auto-generated method stub
+		if( Framenum.equals(obj.Framenum) && Result.equals(obj.Result) && Score.equals(obj.Score) ){
+			return true;
+		}
+		return false;
+	}
 }

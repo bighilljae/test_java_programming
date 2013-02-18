@@ -1,20 +1,24 @@
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
 public class BowlingGame {
 
+	private static final Exception GameOverException = null;
 	public Boolean gameStatus = Boolean.FALSE;
 	BowlingFrame gameFrame = new BowlingFrame();
-	HashMap<BowlingFrame, Integer> gameScoreBoard = new HashMap<>();
+	ArrayList<Integer> gameScoreBoard = new ArrayList<Integer>();
 	
 	public BowlingGame() {
 		gameStatus = Boolean.TRUE;
 	}
 
 	public Integer roll(Integer pins) {
-		gameFrame.FrameAddTry(pins);
+		gameScoreBoard.add(pins);
+		gameFrame.FrameAddTry(pins);		// 생각 변경. Request 받을때 계산하는 것이 더 낫겠음.
 		return pins;
 	}
 
@@ -23,39 +27,61 @@ public class BowlingGame {
 		return gameFrame;
 	}
 
-	public ScoreFrame requireFrame(Integer Framenum) {
-		Integer Score;
-		Integer FirstTry = gameScoreBoard.get(BowlingFrame.getInstanceof(Framenum, 1));
-		Integer SecondTry = gameScoreBoard.get(BowlingFrame.getInstanceof(Framenum, 2));
-		// 항상 유효한 수치만 준다고 가정할 수 없으므로 NullPointException에 대응해야함.
-		String Result = null;
+	public ScoreFrame requireFrame(Integer Framenum) throws Exception {
+		if( gameStatus.equals(Boolean.FALSE) ) throw GameOverException;
+		HashMap<Integer, Integer> map = explore(Framenum);
+
+		Integer Score = 0;
+		Integer First = map.get(1);
+		Integer Second = map.get(2);
+		Integer lastIndex = map.get(0);
+		String Result = "";
 		try{
-			// else 분기문이 사용되었음. 어떻게 하면 더 깨끗한 방법으로 처리할 수 있을까?
-			// 명확한 exception 처리로 더 가독성을 높이고 더 안전한 코드를 짤 수 없을까?
-			if( FirstTry == 10 ){
-				Result = "X";
-			}
-			else if( FirstTry + SecondTry == 10 ){
-				Result = FirstTry.toString() + "/";
-			}
-			else{
-				Result = FirstTry.toString() + SecondTry.toString();
-			}
-		}
-		catch(NullPointerException exception){	
-		}
-		
-		
-		if( Result == null ){
-			Score = -1;
-			return new ScoreFrame(Framenum, Result, Score);
-		}
-		
-		if( Result.charAt(0) == 'X' ){
+			Result = First.toString();
+			if( First == 10 ) Result = "X";
+			Result += Second.toString();
+			if( First + Second == 10 ) Result = First.toString() + "/";
 			
+		}catch(Exception e){
 		}
 		
+
+		try {
+			if (First == 10) {
+				if (gameScoreBoard.size() - 1 >= lastIndex + 2) {
+					Score = 10 + gameScoreBoard.get(lastIndex + 1)
+							+ gameScoreBoard.get(lastIndex + 2);
+				}
+			} else if (First + Second == 10) {
+				if (gameScoreBoard.size() - 1 >= lastIndex + 1) {
+					Score = 10 + gameScoreBoard.get(lastIndex + 1);
+				}
+			} else {
+				Score = First + Second;
+			}
+		} catch (Exception e) {
+
+		}
 		return new ScoreFrame(Framenum, Result, Score);
+	}
+
+	private HashMap<Integer, Integer> explore(Integer framenum) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		int count = 1, tried = 1;
+		for( int i = 0 ; i < gameScoreBoard.size() ; i ++ ){
+			if( count == framenum ){
+				map.put(tried, gameScoreBoard.get(i));
+				map.put(0, i); 			// Key 0 : EndCount
+			}
+			
+			if( gameScoreBoard.get(i) == 10 ){
+				count++; tried = 1;
+				continue;
+			}
+			count += tried / 2;
+			tried = tried % 2 + 1;
+		}
+		return map;
 	}
 }
 

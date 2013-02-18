@@ -11,11 +11,9 @@ import org.junit.Test;
 
 public class Test_BowlingGame {
 	BowlingGame testGame;
-	HashMap<BowlingFrame, Integer> gameFrame;
 	@Before
 	public void init() {
 		testGame = new BowlingGame(); // BowlingGame 인스턴스 생성
-		gameFrame = new HashMap<>();
 	}
 
 	@Test
@@ -41,29 +39,42 @@ public class Test_BowlingGame {
 		testGame.roll(7);
 		testGame.roll(2);
 		testGame.roll(6);
-		// 1Frame : 8-1 2Frame : 7-2 3Frame : 6-
 		
-		gameFrame.put(BowlingFrame.getInstanceof(1, 1), 8);
-		gameFrame.put(BowlingFrame.getInstanceof(1, 2), 1);
-		gameFrame.put(BowlingFrame.getInstanceof(2, 1), 7);
-		gameFrame.put(BowlingFrame.getInstanceof(2, 2), 2);
-		gameFrame.put(BowlingFrame.getInstanceof(3, 1), 6);
 		assertEquals(Boolean.TRUE,
 				BowlingFrame.getInstanceof(3, 2).equals(testGame.getNowFrame()));
 		testGame.roll(4);
 		testGame.roll(10);
-		gameFrame.put(BowlingFrame.getInstanceof(3, 2), 4);
-		gameFrame.put(BowlingFrame.getInstanceof(4, 1), 10);
 		assertEquals("Strike Frame check", Boolean.TRUE, BowlingFrame
 				.getInstanceof(5, 1).equals(testGame.getNowFrame()));
 	}
 	
-	public void test_getScoreBoard(){
+	public void test_getScoreBoard() {
 		testGame.roll(5);
 		testGame.roll(2);
-		
-		assertEquals(ScoreFrame.getInstanceof(1,"81",9), testGame.requireFrame(1));
-		assertEquals(ScoreFrame.getInstanceof(2,"72",9), testGame.requireFrame(2));
+		testGame.roll(10);
+		testGame.roll(10);
+		testGame.roll(8);
+		testGame.roll(2);
+		testGame.roll(4);
+		testGame.roll(4);
+		//testGame.roll(10);
+		//testGame.roll(10);
+		//testGame.roll(10);
+		try{
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(1,"81",9).equals(testGame.requireFrame(1)));
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(2,"72",9).equals(testGame.requireFrame(2)));
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(3,"6/",20).equals(testGame.requireFrame(3)));
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(4,"X",17).equals(testGame.requireFrame(4)));
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(5,"52",7).equals(testGame.requireFrame(5)));	
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(6,"X",28).equals(testGame.requireFrame(6)));
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(7,"X",20).equals(testGame.requireFrame(7)));
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(8,"8/",14).equals(testGame.requireFrame(8)));
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(9,"44",8).equals(testGame.requireFrame(9)));
+			//assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(10,"XXX",30).equals(testGame.requireFrame(10)));
+			
+		}catch(Exception exception){
+			assertEquals(null, exception);
+		}
 	}
 	
 	
