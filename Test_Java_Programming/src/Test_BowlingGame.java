@@ -40,12 +40,18 @@ public class Test_BowlingGame {
 		testGame.roll(2);
 		testGame.roll(6);
 		
-		assertEquals(Boolean.TRUE,
-				BowlingFrame.getInstanceof(3, 2).equals(testGame.getNowFrame()));
+		try {
+			assertEquals(Boolean.TRUE,
+					BowlingFrame.getInstanceof(3, 2).equals(testGame.getNowFrame()));
+		
 		testGame.roll(4);
 		testGame.roll(10);
 		assertEquals("Strike Frame check", Boolean.TRUE, BowlingFrame
 				.getInstanceof(5, 1).equals(testGame.getNowFrame()));
+		} catch (Exception exception) {
+			// TODO Auto-generated catch block
+			assertEquals(Boolean.TRUE, exception.getMessage().equals("GameOverException")); // GameOverException이 발생하면 정상 Exception
+		}
 	}
 	
 	public void test_getScoreBoard() {
@@ -73,7 +79,7 @@ public class Test_BowlingGame {
 			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(10,"XXX",30).equals(testGame.requireFrame(10)));
 			
 		}catch(Exception exception){
-			assertEquals(null, exception);
+			assertEquals(Boolean.TRUE, exception.getMessage().equals("GameOverException")); 		// exception 이 GameOverExcpetion인 경우 정상적인 에러 발생이므로 성공 처리 해주어야 함.
 		}
 	}
 	
