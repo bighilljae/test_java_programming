@@ -1,6 +1,10 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,9 +24,10 @@ public class Test_BowlingGame {
 	
 	// test_Roll과, test_getNowFrame이 순차적으로 진행되어야 하는데, Test Method 의 순서를 엄밀히 지정해주어야 하겠다!
 	@Test
-	public void testInOrder_roll_getNowFrame(){
+	public void testInOrder_roll_getNowFrame_getScoreBoard(){
 		test_roll();
 		test_getNowFrame();
+		test_getScoreBoard();
 	}
 	
 	public void test_roll() {
@@ -50,6 +55,14 @@ public class Test_BowlingGame {
 		gameFrame.put(BowlingFrame.getInstanceof(4, 1), 10);
 		assertEquals("Strike Frame check", Boolean.TRUE, BowlingFrame
 				.getInstanceof(5, 1).equals(testGame.getNowFrame()));
+	}
+	
+	public void test_getScoreBoard(){
+		testGame.roll(5);
+		testGame.roll(2);
+		
+		LinkedList<ScoreFrame> list = testGame.getScoreBoard();
+		Iterator<ScoreFrame> iterator = list.descendingIterator();
 	}
 	
 	
