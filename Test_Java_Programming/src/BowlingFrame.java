@@ -19,6 +19,9 @@ public class BowlingFrame {
 	}
 	
 	public void FrameAddTry(Integer pins){
+		if( Frame == 10 && pins.equals(10) ){
+			Tried++;
+		}
 		if( pins.equals(10) ){ 
 			Frame++; 
 			Tried = 1; 

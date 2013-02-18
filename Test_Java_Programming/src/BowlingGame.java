@@ -40,13 +40,34 @@ public class BowlingGame {
 			Result = First.toString();
 			if( First == 10 ) Result = "X";
 			Result += Second.toString();
-			if( First + Second == 10 ) Result = First.toString() + "/";
+			if( First != 10 && First + Second == 10 ) Result = First.toString() + "/";
+			
+			if( Framenum == 10 && (First == 10 || First+Second == 10) ){
+				if( First == 10 ) Result = "X";
+				else Result = First.toString();
+				
+				if( First == 10 && Second == 10 ) Result += "X";
+				else if( First != 10 && First + Second == 10 ){
+					Result += "/";
+				}
+				
+				Integer LastPin = gameScoreBoard.get(lastIndex + 1); 
+				if( LastPin == 10 ){
+					Result += "X";
+				}
+				else if(First == 10 && Second != 10 && Second + LastPin == 10 ) Result += "/";
+				else Result += LastPin.toString();
+			}
 			
 		}catch(Exception e){
 		}
 		
 
 		try {
+			if( Framenum == 10 && (First == 10 || First+Second == 10) ){
+				Score = First + Second + gameScoreBoard.get(lastIndex + 1);
+				return new ScoreFrame(Framenum, Result, Score);
+			}
 			if (First == 10) {
 				if (gameScoreBoard.size() - 1 >= lastIndex + 2) {
 					Score = 10 + gameScoreBoard.get(lastIndex + 1)
@@ -60,7 +81,7 @@ public class BowlingGame {
 				Score = First + Second;
 			}
 		} catch (Exception e) {
-
+			Score = 0;
 		}
 		return new ScoreFrame(Framenum, Result, Score);
 	}
@@ -74,7 +95,7 @@ public class BowlingGame {
 				map.put(0, i); 			// Key 0 : EndCount
 			}
 			
-			if( gameScoreBoard.get(i) == 10 ){
+			if( gameScoreBoard.get(i) == 10 && count != 10 ){
 				count++; tried = 1;
 				continue;
 			}

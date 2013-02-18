@@ -57,9 +57,9 @@ public class Test_BowlingGame {
 		testGame.roll(2);
 		testGame.roll(4);
 		testGame.roll(4);
-		//testGame.roll(10);
-		//testGame.roll(10);
-		//testGame.roll(10);
+		testGame.roll(10);
+		testGame.roll(10);
+		testGame.roll(10);
 		try{
 			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(1,"81",9).equals(testGame.requireFrame(1)));
 			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(2,"72",9).equals(testGame.requireFrame(2)));
@@ -70,7 +70,7 @@ public class Test_BowlingGame {
 			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(7,"X",20).equals(testGame.requireFrame(7)));
 			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(8,"8/",14).equals(testGame.requireFrame(8)));
 			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(9,"44",8).equals(testGame.requireFrame(9)));
-			//assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(10,"XXX",30).equals(testGame.requireFrame(10)));
+			assertEquals(Boolean.TRUE, ScoreFrame.getInstanceof(10,"XXX",30).equals(testGame.requireFrame(10)));
 			
 		}catch(Exception exception){
 			assertEquals(null, exception);
